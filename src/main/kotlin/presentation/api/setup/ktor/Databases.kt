@@ -1,4 +1,4 @@
-package com.example
+package com.example.presentation.api.setup.ktor
 
 import com.example.infrastructure.table.exposed.CityTable
 import io.ktor.server.application.*

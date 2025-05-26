@@ -1,4 +1,4 @@
-package com.example
+package com.example.presentation.api.setup.ktor
 
 import com.example.presentation.api.routing.ktor.cityRoutes
 import com.example.presentation.controller.CityController
