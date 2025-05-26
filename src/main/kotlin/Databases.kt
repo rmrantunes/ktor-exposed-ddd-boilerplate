@@ -6,7 +6,9 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-fun Application.configureDatabases(): Database {
+data class ConfigureDatabasesResult (val exposedPostgresMainDatabase: Database)
+
+fun Application.configureDatabases(): ConfigureDatabasesResult {
     val database = Database.connect(
         url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
         user = "root",
@@ -16,7 +18,7 @@ fun Application.configureDatabases(): Database {
 
     initExposed(database)
 
-    return database
+    return ConfigureDatabasesResult(exposedPostgresMainDatabase = database)
 }
 
 fun initExposed(database: Database) {

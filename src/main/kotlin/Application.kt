@@ -12,11 +12,11 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureSerialization()
-    val database = configureDatabases()
+    val databases = configureDatabases()
 
     val cityRepository = ExposedPostgresCityRepository(
         database,
-        CityEntity,
+        databases.exposedPostgresMainDatabase,
     )
     val cityService = CityService(cityRepository)
     val cityController = CityController(cityService)
