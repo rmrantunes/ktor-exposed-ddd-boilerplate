@@ -8,11 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-class ExposedPostgresCityRepository(private val db: Database, private val entity: CityEntity.Companion) :
+class ExposedPostgresCityRepository(private val db: Database) :
     CityRepository {
 
     override suspend fun create(city: CityModel): Int = dbQuery(db) {
-        entity.new {
+        CityEntity.new {
             name = city.name
             population = city.population
         }.id.value
@@ -20,13 +20,13 @@ class ExposedPostgresCityRepository(private val db: Database, private val entity
 
 
     override suspend fun read(id: Int): CityModel? = dbQuery(db) {
-        val city = entity.findById(id)
+        val city = CityEntity.findById(id)
         city?.toModel() ?: return@dbQuery null
     }
 
 
     override suspend fun update(id: Int, city: CityModel) = dbQuery(db) {
-        entity.findByIdAndUpdate(id) {
+        CityEntity.findByIdAndUpdate(id) {
             it.name = city.name
             it.population = city.population
         }
@@ -34,7 +34,7 @@ class ExposedPostgresCityRepository(private val db: Database, private val entity
     }
 
     override suspend fun delete(id: Int): Boolean? = dbQuery(db) {
-        val city = entity.findById(id)
+        val city = CityEntity.findById(id)
         if (city == null) return@dbQuery null
         else {
             city.delete()

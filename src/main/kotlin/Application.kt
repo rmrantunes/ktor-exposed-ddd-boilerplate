@@ -15,8 +15,7 @@ fun Application.module() {
     val databases = configureDatabases()
 
     val cityRepository = ExposedPostgresCityRepository(
-        database,
-        databases.exposedPostgresMainDatabase,
+        databases.exposedPostgresMainDatabase
     )
     val cityService = CityService(cityRepository)
     val cityController = CityController(cityService)
