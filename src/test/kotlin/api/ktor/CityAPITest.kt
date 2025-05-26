@@ -2,9 +2,7 @@ package com.example.api.ktor
 
 import com.example.module
 import com.example.presentation.dto.CityCreateBodyDTO
-import com.example.presentation.dto.CityCreateResponseDataDTO
-import com.example.presentation.dto.HTTPDataResponseObject
-import io.ktor.client.call.*
+import com.example.testutils.api.ktor.bodyAsJsonPathDoc
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
@@ -31,19 +29,19 @@ class CityAPITest {
                 ContentType.Application.Json
             )
 
+            parameter("name", "test")
+
             setBody(
                 CityCreateBodyDTO(name = "Cidade", population = 3322)
             )
         }
 
-        assertEquals(HttpStatusCode.Created, response.status)
-        val expect = HTTPDataResponseObject(
-            CityCreateResponseDataDTO(
-                id = 1
-            )
-        )
-        val actual = response.body<HTTPDataResponseObject<CityCreateResponseDataDTO>>().data.id
 
-        assertEquals(expect.data.id, actual)
+        val jsonDoc = response.bodyAsJsonPathDoc()
+        val actualId = jsonDoc.read<Int>("$.data.id")
+        val expectedId = 1
+
+        assertEquals(HttpStatusCode.Created, response.status)
+        assertEquals(expectedId, actualId)
     }
 }
