@@ -4,7 +4,7 @@ import com.example.domain.model.CityModel
 import com.example.domain.repository.CityRepository
 
 class CityService(
-    val cityRepository: CityRepository
+    private val cityRepository: CityRepository
 ) {
     suspend fun create(city: CityModel): Int {
         return cityRepository.create(city)

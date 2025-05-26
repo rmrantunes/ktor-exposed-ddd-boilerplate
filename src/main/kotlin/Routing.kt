@@ -1,7 +1,7 @@
 package com.example
 
-import com.example.domain.model.CityModel
 import com.example.presentation.controller.CityController
+import com.example.presentation.dto.CityCreateBodyDTO
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
@@ -14,18 +14,18 @@ fun Application.configureRouting(
 ) {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
-            call.respondText(text = "500: $cause" , status = HttpStatusCode.InternalServerError)
+            call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
         }
     }
 
     routing {
         // Create city
         post("/cities") {
-            val city = call.receive<CityModel>()
-            val cityCreated = cityController.create(onGetBody = {
+            val city = call.receive<CityCreateBodyDTO>()
+            val result = cityController.create(onGetBody = {
                 city
             })
-            call.respond(HttpStatusCode.Created, cityCreated)
+            call.respond(HttpStatusCode.fromValue(result.statusCode), result)
         }
 
 //        // Read city

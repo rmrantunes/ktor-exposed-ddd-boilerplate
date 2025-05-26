@@ -1,7 +1,9 @@
 package com.example.api.ktor
 
-import com.example.domain.model.CityModel
 import com.example.module
+import com.example.presentation.dto.CityCreateBodyDTO
+import com.example.presentation.dto.CityCreateResponseDataDTO
+import com.example.presentation.dto.HTTPDataResponseObject
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -11,7 +13,7 @@ import io.ktor.server.testing.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class CityRestTest {
+class CityAPITest {
     @Test
     fun testCreateCity() = testApplication {
         application {
@@ -30,11 +32,18 @@ class CityRestTest {
             )
 
             setBody(
-                CityModel(name = "Cidade", id = null, population = 3322)
+                CityCreateBodyDTO(name = "Cidade", population = 3322)
             )
         }
 
         assertEquals(HttpStatusCode.Created, response.status)
-        assertEquals(1, response.body())
+        val expect = HTTPDataResponseObject(
+            CityCreateResponseDataDTO(
+                id = 1
+            )
+        )
+        val actual = response.body<HTTPDataResponseObject<CityCreateResponseDataDTO>>().data.id
+
+        assertEquals(expect.data.id, actual)
     }
 }
