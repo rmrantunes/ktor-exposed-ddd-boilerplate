@@ -2,7 +2,7 @@ package com.example.presentation.api.setup.ktor
 
 import com.example.domain.service.CityService
 import com.example.infrastructure.repository.exposed.ExposedPostgresCityRepository
-import com.example.presentation.controller.CityController
+import com.example.presentation.api.controller.CityController
 import io.ktor.server.application.*
 
 data class DIResult(

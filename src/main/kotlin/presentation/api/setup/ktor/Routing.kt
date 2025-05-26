@@ -1,7 +1,7 @@
 package com.example.presentation.api.setup.ktor
 
 import com.example.presentation.api.routing.ktor.cityRoutes
-import com.example.presentation.controller.CityController
+import com.example.presentation.api.controller.CityController
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*

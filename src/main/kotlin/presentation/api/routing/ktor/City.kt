@@ -1,7 +1,7 @@
 package com.example.presentation.api.routing.ktor
 
-import com.example.presentation.controller.CityController
-import com.example.presentation.dto.CityCreateBodyDTO
+import com.example.presentation.api.controller.CityController
+import com.example.presentation.api.dto.CityCreateBodyDTO
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

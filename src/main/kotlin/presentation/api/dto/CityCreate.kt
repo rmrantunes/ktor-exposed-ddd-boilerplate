@@ -1,4 +1,4 @@
-package com.example.presentation.dto
+package com.example.presentation.api.dto
 
 import kotlinx.serialization.Serializable
 

@@ -1,10 +1,10 @@
-package com.example.presentation.controller
+package com.example.presentation.api.controller
 
 import com.example.domain.model.CityModel
 import com.example.domain.service.CityService
-import com.example.presentation.dto.CityCreateBodyDTO
-import com.example.presentation.dto.CityCreateResponseDataDTO
-import com.example.presentation.dto.HTTPDataResponseObject
+import com.example.presentation.api.dto.CityCreateBodyDTO
+import com.example.presentation.api.dto.CityCreateResponseDataDTO
+import com.example.presentation.api.dto.HTTPDataResponseObject
 
 class CityController(
     private val service: CityService
