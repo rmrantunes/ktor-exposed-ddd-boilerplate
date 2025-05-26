@@ -8,6 +8,7 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.runBlocking
 
 fun Application.configureRouting(
     cityController: CityController
@@ -21,9 +22,10 @@ fun Application.configureRouting(
     routing {
         // Create city
         post("/cities") {
-            val city = call.receive<CityCreateBodyDTO>()
             val result = cityController.create(onGetBody = {
-                city
+                runBlocking {
+                    call.receive<CityCreateBodyDTO>()
+                }
             })
             call.respond(HttpStatusCode.fromValue(result.statusCode), result)
         }
