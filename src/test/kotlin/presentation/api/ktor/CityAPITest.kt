@@ -1,7 +1,7 @@
 package com.example.presentation.api.ktor
 
+import com.example.module
 import com.example.presentation.api.dto.CityCreateBodyDTO
-import com.example.presentation.api.setup.ktor.module
 import com.example.testutils.api.ktor.bodyAsJsonPathDoc
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
