@@ -84,7 +84,10 @@ class CityAPITest {
         }
 
         val response = client.get("/cities/1233")
+        val jsonDoc = response.bodyAsJsonPathDoc()
+        val errors: List<String> = jsonDoc.read("$.errors")
 
         assertEquals(HttpStatusCode.NotFound, response.status)
+        assertEquals("City not found", errors[0])
     }
 }

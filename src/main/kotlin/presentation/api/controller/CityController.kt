@@ -29,7 +29,8 @@ class CityController(
 
         return HTTPDataResponseObject(
             city,
-            statusCode = if (city != null) 201 else 404
+            statusCode = if (city != null) 201 else 404,
+            errors =  if (city != null) null else listOf("City not found")
         )
     }
 }
