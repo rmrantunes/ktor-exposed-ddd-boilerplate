@@ -12,3 +12,8 @@ data class CityCreateBodyDTO(
 data class CityCreateResponseDataDTO(
     val id: Int
 )
+
+@Serializable
+data class CityGetParamsDTO(
+    val id: Int
+)
