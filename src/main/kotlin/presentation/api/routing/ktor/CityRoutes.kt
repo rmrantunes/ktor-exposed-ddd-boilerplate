@@ -21,7 +21,7 @@ fun Routing.cityRoutes(cityController: CityController) {
 
     get("/cities/{id}") {
         val result = cityController.get(onGetParams = {
-            val id = call.parameters["id"]?.toInt() ?: 0
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
             CityGetParamsDTO(id)
         })
 
