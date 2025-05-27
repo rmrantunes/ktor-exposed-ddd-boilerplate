@@ -2,6 +2,7 @@ package com.example.presentation.api.routing.ktor
 
 import com.example.presentation.api.controller.CityController
 import com.example.presentation.api.dto.CityCreateBodyDTO
+import com.example.presentation.api.dto.CityGetParamsDTO
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -18,16 +19,14 @@ fun Routing.cityRoutes(cityController: CityController) {
         call.respond(HttpStatusCode.fromValue(result.statusCode), result)
     }
 
-//        // Read city
-//        get("/cities/{id}") {
-//            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-//            try {
-//                val city = cityService.read(id)
-//                call.respond(HttpStatusCode.OK, city)
-//            } catch (e: Exception) {
-//                call.respond(HttpStatusCode.NotFound)
-//            }
-//        }
+    get("/cities/{id}") {
+        val result = cityController.get(onGetParams = {
+            val id = call.parameters["id"]?.toInt() ?: 0
+            CityGetParamsDTO(id)
+        })
+
+        call.respond(HttpStatusCode.fromValue(result.statusCode), result)
+    }
 //
 //        // Update city
 //        put("/cities/{id}") {

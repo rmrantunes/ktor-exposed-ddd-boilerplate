@@ -4,6 +4,7 @@ import com.example.domain.model.CityModel
 import com.example.domain.service.CityService
 import com.example.presentation.api.dto.CityCreateBodyDTO
 import com.example.presentation.api.dto.CityCreateResponseDataDTO
+import com.example.presentation.api.dto.CityGetParamsDTO
 import com.example.presentation.api.dto.HTTPDataResponseObject
 
 class CityController(
@@ -17,6 +18,18 @@ class CityController(
         return HTTPDataResponseObject(
             CityCreateResponseDataDTO(id),
             statusCode = 201
+        )
+    }
+
+    suspend fun get(
+        onGetParams: () -> CityGetParamsDTO
+    ): HTTPDataResponseObject<CityModel?> {
+        val params = onGetParams()
+        val city = service.read(params.id)
+
+        return HTTPDataResponseObject(
+            city,
+            statusCode = if (city != null) 201 else 404
         )
     }
 }
