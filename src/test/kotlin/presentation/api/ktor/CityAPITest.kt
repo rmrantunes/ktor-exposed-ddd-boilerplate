@@ -11,10 +11,9 @@ import io.ktor.server.testing.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-
 class CityAPITest {
     @Test
-    fun testCreateCity() = testApplication {
+    fun testShouldCreateCity() = testApplication {
         application {
             module()
         }
@@ -45,7 +44,7 @@ class CityAPITest {
     }
 
     @Test
-    fun testGetCity() = testApplication {
+    fun testShouldGetCity() = testApplication {
         application {
             module()
         }
@@ -70,15 +69,17 @@ class CityAPITest {
         val response2 = client.get("/cities/1")
 
         val jsonDoc = response2.bodyAsJsonPathDoc()
+        val actualId = jsonDoc.read<Int>("$.data.id")
         val actualName = jsonDoc.read<String>("$.data.name")
         val actualPopulation = jsonDoc.read<Int>("$.data.population")
 
         assertEquals("Cidade", actualName)
         assertEquals(3322, actualPopulation)
+        assertEquals(1, actualId)
     }
 
     @Test
-    fun testGetCityNotFound() = testApplication {
+    fun testShouldGetCityReturnNotFound() = testApplication {
         application {
             module()
         }
