@@ -1,6 +1,8 @@
 package com.example.presentation.api.setup.ktor
 
 import com.example.domain.service.CityService
+import com.example.infrastructure.database.exposed.ConfigureDatabasesResult
+import com.example.infrastructure.database.exposed.configureDatabases
 import com.example.infrastructure.repository.exposed.ExposedPostgresCityRepository
 import com.example.presentation.api.controller.CityController
 import io.ktor.server.application.*
@@ -18,7 +20,7 @@ fun Application.setupDI(): DIResult {
 
     // CITY
     val cityRepository = ExposedPostgresCityRepository(
-        databases.exposedPostgresMainDatabase
+        databases.postgresMainDatabase
     )
     val cityService = CityService(cityRepository)
     val cityController = CityController(cityService)
