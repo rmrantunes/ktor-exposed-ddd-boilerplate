@@ -24,6 +24,11 @@ class ExposedPostgresCityRepository(private val db: Database) :
         city?.toModel() ?: return@dbQuery null
     }
 
+    override suspend fun list(): Pair<List<CityModel>, Int> {
+        val cities = CityEntity.all().toList().map { it.toModel() }
+        return Pair(cities, cities.size)
+    }
+
 
     override suspend fun update(id: Int, city: CityModel) = dbQuery(db) {
         CityEntity.findByIdAndUpdate(id) {
