@@ -2,6 +2,7 @@ package com.example.testutils.repository
 
 import com.example.domain.model.CityModel
 import com.example.domain.repository.CityRepository
+import com.example.domain.repository.Total
 
 class FakeCityRepository : CityRepository {
     private val table = mutableMapOf<Int?, CityModel>()
@@ -30,5 +31,9 @@ class FakeCityRepository : CityRepository {
     override suspend fun delete(id: Int): Boolean? {
         table.remove(id)
         return true
+    }
+
+    override suspend fun list(): Pair<List<CityModel>, Total> {
+        return Pair(table.values.toList(), table.size)
     }
 }
